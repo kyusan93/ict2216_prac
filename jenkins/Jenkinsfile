@@ -13,6 +13,8 @@ pipeline {
                 dir('workspace') {
                     git branch: 'master', url: ' https://github.com/kyusan93/ict2216_prac.git'
                 }
+            }
+        }
 
         stage('OWASP DependencyCheck') {
             steps {
