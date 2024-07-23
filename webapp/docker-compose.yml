@@ -1,0 +1,15 @@
+version: '3.8'
+services:
+  webapp-test:
+    build: .
+    container_name: webapp-test
+    restart: always
+    ports:
+      - "5000"
+    networks: 
+      - ict2216_prac_default
+
+networks: 
+  ict2216_prac_default: 
+    external: 
+      name: ict2216_prac_default

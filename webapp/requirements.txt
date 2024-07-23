@@ -1,0 +1,11 @@
+Flask
+markupsafe
+Werkzeug
+requests
+Jinja2
+itsdangerous
+click
+selenium
+pytest
+webdriver-manager
+Flask-WTF
