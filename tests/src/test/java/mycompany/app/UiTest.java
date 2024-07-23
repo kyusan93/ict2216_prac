@@ -14,8 +14,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class UiTest {
     WebDriver driver; 
     WebDriverWait wait; 
-    String url = "http://webapp-test:5000";  // Update this URL if necessary
-    String validPassword = "StrongP@ssw0rd";
+    String url = "http://webapp-test:5000";
+    String validPassword = "StrongP@ssw0rd!";
     String invalidPassword = "short";
     String commonPassword = "password";
 
@@ -61,5 +61,27 @@ public class UiTest {
         wait.until(ExpectedConditions.titleContains("Home Page")); 
         String bodyText = driver.findElement(By.tagName("body")).getText();
         assertTrue(bodyText.contains("Password does not meet requirements or is too common."));
+    }
+
+    @Test
+    public void testLoginWithEmptyPassword() throws InterruptedException {
+        driver.get(url);
+        wait.until(ExpectedConditions.titleContains("Home Page")); 
+        driver.findElement(By.name("password")).sendKeys("");
+        driver.findElement(By.tagName("form")).submit();
+        wait.until(ExpectedConditions.titleContains("Home Page")); 
+        String bodyText = driver.findElement(By.tagName("body")).getText();
+        assertTrue(bodyText.contains("Password does not meet requirements or is too common."));
+    }
+    
+    @Test
+    public void testLoginWithPasswordContainingSpaces() throws InterruptedException {
+        driver.get(url);
+        wait.until(ExpectedConditions.titleContains("Home Page")); 
+        driver.findElement(By.name("password")).sendKeys("Valid Password 123");
+        driver.findElement(By.tagName("form")).submit();
+        wait.until(ExpectedConditions.titleContains("Welcome Page")); 
+        String welcomeText = driver.findElement(By.tagName("body")).getText();
+        assertTrue(welcomeText.contains("Your password is: Valid Password 123"));
     }
 }
